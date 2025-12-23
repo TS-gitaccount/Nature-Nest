@@ -1,0 +1,31 @@
+{
+  "users": [
+    {
+      "id": "fe70",
+      "fullname": "Anu",
+      "username": "Anu123",
+      "email": "anupamkumari6066@gmail.com",
+      "password": "12345678",
+      "gender": "female",
+      "createdAt": "2025-11-18T18:35:00.391Z"
+    },
+    {
+      "id": "5d7c",
+      "fullname": "Anu",
+      "username": "Anu1123",
+      "email": "vatsalamuralidhar@gmail.com",
+      "password": "12345678",
+      "gender": "female",
+      "createdAt": "2025-11-18T18:37:08.415Z"
+    },
+    {
+      "id": "6575",
+      "fullname": "Anu",
+      "username": "Anu123",
+      "email": "anupamkumari6066@gmail.com",
+      "password": "12345678",
+      "gender": "female",
+      "createdAt": "2025-11-18T18:45:12.326Z"
+    }
+  ]
+}

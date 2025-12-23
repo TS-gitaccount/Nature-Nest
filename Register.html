@@ -58,7 +58,7 @@
 
 
     <section id="register">
-        <form action="#" method="get">
+        <form id="registerForm" >
             <h1> <span>Register</span></h1>
             <div>
                 <label for="fullname">Full Name:</label>
@@ -167,6 +167,47 @@
 
     </footer>
     <!-- footer end -->
+
+
+    <script defer>
+ 
+  const API_BASE = 'http://localhost:5500';
+  const form = document.getElementById('registerForm');
+
+  form?.addEventListener('submit', async (e) => {
+
+     if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+    e.preventDefault();
+
+    const payload = {
+      fullname: document.getElementById('fullname').value.trim(),
+      username: document.getElementById('username').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      password: document.getElementById('password').value,
+      gender: document.querySelector('input[name="gender"]:checked')?.value || null,
+      createdAt: new Date().toISOString()
+    };
+
+    try {
+      // Create user
+      const resp = await fetch(`${API_BASE}/users`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!resp.ok) throw new Error('Request failed');
+
+      alert('Registered successfully.');
+      window.location.href = './login.html';
+    } catch (err) {
+      console.error(err);
+      alert('Registration failed. Please try again.');
+    }
+  });
+</script>
 </body>
 
 </html>
