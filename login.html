@@ -38,13 +38,18 @@
                     <h1>Nature Nest</h1>
                 </a>
             </div>
-            <nav class="header-nav">
-                <a href="./index.html">HOME</a>
-                <a href="./about.html">ABOUT</a>
-                <a href="./service.html">SERVICE</a>
-                <a href="./Register.html">REGISTER</a>
-                <a href="./login.html">LOGIN</a>
-            </nav>
+           <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+<nav class="header-nav" id="header-nav">
+    <a href="./index.html">HOME</a>
+    <a href="./about.html">ABOUT</a>
+    <a href="./service.html">SERVICE</a>
+    <a href="./Register.html">REGISTER</a>
+    <a href="./login.html">LOGIN</a>
+</nav>
         </div>
     </header>
     <!-- header end -->
@@ -122,7 +127,22 @@
     </footer>
     <!-- footer end -->
 
-    <script>
+    <script defer>
+    const hamburger = document.getElementById('hamburger');
+    const nav = document.getElementById('header-nav');
+    hamburger.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('nav-open');
+        hamburger.classList.toggle('is-active', isOpen);
+        hamburger.setAttribute('aria-expanded', isOpen);
+    });
+    nav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            nav.classList.remove('nav-open');
+            hamburger.classList.remove('is-active');
+            hamburger.setAttribute('aria-expanded', false);
+        });
+    });
+
         // ==================== SUPABASE CONFIGURATION ====================
         const SUPABASE_URL = 'https://xovryqvqrzirfrchqjgp.supabase.co';    
         const SUPABASE_ANON_KEY = 'sb_publishable_n-A9d5vpauaIPKXInSSFkQ_sxoMvOLm'; 
