@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="style1.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
 </head>
 
 <body>
@@ -52,22 +54,23 @@
     </header>
     <!-- header end -->
 
-
-
     <section id="login">
         <form id="loginForm">
             <h1>Login</h1>
             <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required placeholder="your@email.com">
+                <label for="username">Username or Email:</label>
+                <input type="text" id="username" name="username" required placeholder="Username or email">
             </div>
+            <br>
             <div>
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required minlength="8" placeholder="Min 8 characters">
             </div>
+            <br>
             <div id="register-link">
                 <p>Not registered? <a href="./Register.html">Create an account</a></p>
             </div>
+            <br>
             <div class="buttons">
                 <input type="submit" value="Login">
                 <input type="reset" value="Reset">
@@ -124,7 +127,7 @@
     </footer>
     <!-- footer end -->
 
-   <script defer>
+    <script defer>
         const SUPABASE_URL = 'https://xovryqvqrzirfrchqjgp.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhvdnJ5cXZxcnppcmZyY2hxamdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxNjQ0MjMsImV4cCI6MjA5MTc0MDQyM30.Ta2XSbIukgECFZjo0ryeP9c3QRk6h_8MU5GMAIoQjk4';
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -164,4 +167,5 @@
         });
     </script>
 </body>
+
 </html>
