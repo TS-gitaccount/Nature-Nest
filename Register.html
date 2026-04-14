@@ -225,13 +225,13 @@ form div.terms-wrapper {
                     const { error: insertError } = await supabase
                         .from('users')   // change to your actual table name
                         .insert([{
-                            id: userId,
-                            fullname: fullname,
-                            username: username,
-                            email: email,
-                            gender: gender,
-                            created_at: new Date().toISOString()
-                        }]);
+    user_uuid: userId,  
+    fullname: fullname,
+    username: username,
+    email: email,
+    gender: gender,
+    created_at: new Date().toISOString()
+}]);
 
                     if (insertError) {
                         // If profile insert fails, still account created – you may want to clean up.
