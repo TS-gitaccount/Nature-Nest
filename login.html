@@ -4,36 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login - Nature Nest</title>
     <link rel="stylesheet" href="style1.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
-
 </head>
 
 <body>
     <!-- header start -->
     <header>
-
         <div class="sub-header">
-
             <div>
                 <ul class="info">
-                    <li><i class="fa fa-envelope"></i>abc@gmail.com</li>
+                    <li><i class="fa fa-envelope"></i>hello@ourwebsite.com</li>
                     <li><i class="fa fa-map"></i> Bangalore , Karnataka</li>
                 </ul>
             </div>
             <div>
                 <ul class="social-links">
-                    <li><a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a></li>
-                    <li><a href="https://x.com/?lang=en-in&mx=2" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                    <li><a href="https://in.linkedin.com/" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-                    <li><a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"><i
+                                class="fab fa-facebook"></i></a></li>
+                    <li><a href="https://x.com/?lang=en-in&mx=2" target="_blank" rel="noopener noreferrer"><i
+                                class="fab fa-twitter"></i></a></li>
+                    <li><a href="https://in.linkedin.com/" target="_blank" rel="noopener noreferrer"><i
+                                class="fab fa-linkedin"></i></a></li>
+                    <li><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><i
+                                class="fab fa-instagram"></i></a></li>
                 </ul>
             </div>
-
         </div>
-
-
 
         <div class="header-area">
             <div class="header-logo">
@@ -42,54 +40,52 @@
                     <h1>Nature Nest</h1>
                 </a>
             </div>
-            <nav class="header-nav">
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="header-nav" id="header-nav">
                 <a href="./index.html">HOME</a>
                 <a href="./about.html">ABOUT</a>
                 <a href="./service.html">SERVICE</a>
                 <a href="./Register.html">REGISTER</a>
                 <a href="./login.html">LOGIN</a>
             </nav>
-
         </div>
-
-
     </header>
     <!-- header end -->
 
-<!-- login starts -->
-<section id="login">
-    <form action="#" method="get">
-        <h1>Login</h1>
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required minlength="5" maxlength="10" placeholder="5-10 characters">
-        </div>
-        <br>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required minlength="8" placeholder="Min 8 characters">
-        </div>
-        <br>
-        <div id="register-link">
-            <p>Not registered? <a href="./register.html">Create an account</a></p>
-        </div>
-        <br>
-        <div class="buttons">
-            <input type="submit" value="Login">
-            <input type="reset" value="Reset">
-        </div>
-    </form>
-</section>
-
-
-<!-- login ends -->
+    <section id="login">
+        <form id="loginForm">
+            <h1>Login</h1>
+            <div>
+                <label for="username">Username or Email:</label>
+                <input type="text" id="username" name="username" required minlength="5" maxlength="10"
+                    placeholder="5-10 characters">
+            </div>
+            <br>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required minlength="8"
+                    placeholder="Min 8 characters">
+            </div>
+            <br>
+            <div id="register-link">
+                <p>Not registered? <a href="./Register.html">Create an account</a></p> <!-- fixed case -->
+            </div>
+            <br>
+            <div class="buttons">
+                <input type="submit" value="Login">
+                <input type="reset" value="Reset">
+            </div>
+        </form>
+    </section>
 
     <!-- footer start -->
     <footer>
         <div class="footer-container">
             <div class="footer-content">
-
-                <!-- Quick Links -->
                 <div class="footer-section">
                     <h3>Quick Links</h3>
                     <div class="quick-links">
@@ -104,40 +100,82 @@
                         </ul>
                     </div>
                 </div>
-
-
-
-
-                <!-- Contact Info -->
                 <div class="footer-section">
                     <h3>Get In Touch</h3>
                     <p style="text-align: center;">hello@ourwebsite.com</p>
                     <p style="text-align: center;">Mon - Fri: 9AM - 6PM</p>
                 </div>
-
-                <!-- Social & Newsletter -->
                 <div class="footer-section">
                     <h3>Stay Connected</h3>
                     <p>Follow us on social media for updates and news!</p>
                     <div class="footer-social-links">
-                        <a href="https://x.com/?lang=en-in&mx=2"><i class="fab fa-twitter"></i></a>
-                        <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://in.linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
-
+                        <a href="https://x.com/?lang=en-in&mx=2" target="_blank" rel="noopener noreferrer"><i
+                                class="fab fa-twitter"></i></a>
+                        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://in.linkedin.com/" target="_blank" rel="noopener noreferrer"><i
+                                class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><i
+                                class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
-
             <div class="footer-bottom">
-
-                <p>&copy; 2024 Our Website. All rights reserved. </p>
+                <p>&copy; 2024 Our Website. All rights reserved.</p>
                 <p>Designed for the future, built for today.</p>
             </div>
         </div>
-
     </footer>
     <!-- footer end -->
+
+    <script>
+        const API_BASE = 'http://localhost:5500';
+        const loginForm = document.getElementById('loginForm');
+
+        loginForm?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const usernameOrEmail = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+
+            try {
+                const res = await fetch(`${API_BASE}/users`);
+                const users = await res.json();
+
+                const user = users.find(u =>
+                    (u.username === usernameOrEmail || u.email === usernameOrEmail) && u.password === password
+                );
+
+                if (user) {
+                    alert(`Welcome back, ${user.fullname || user.username}!`);
+                    // Optionally redirect to dashboard or home
+                    window.location.href = './index.html';
+                } else {
+                    alert('Invalid username/email or password. Please try again.');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Login failed. Make sure JSON Server is running on port 5500.');
+            }
+        });
+    </script>
 </body>
+
+<script defer>
+    const hamburger = document.getElementById('hamburger');
+    const nav = document.getElementById('header-nav');
+    hamburger.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('nav-open');
+        hamburger.classList.toggle('is-active', isOpen);
+        hamburger.setAttribute('aria-expanded', isOpen);
+    });
+    nav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            nav.classList.remove('nav-open');
+            hamburger.classList.remove('is-active');
+            hamburger.setAttribute('aria-expanded', false);
+        });
+    });
+</script>
 
 </html>
