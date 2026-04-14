@@ -17,6 +17,15 @@
       "password": "12345678",
       "gender": "female",
       "createdAt": "2025-11-18T18:37:08.415Z"
+    },
+    {
+      "id": "7996",
+      "fullname": "Poovarasan",
+      "username": "poovarasan",
+      "email": "ABC@mail.com",
+      "password": "12345678",
+      "gender": "male",
+      "createdAt": "2026-04-14T13:35:52.823Z"
     }
   ]
 }

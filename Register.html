@@ -7,32 +7,7 @@
     <title>Register - Nature Nest</title>
     <link rel="stylesheet" href="style1.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
-    <style>
-        /* Additional fix for terms & conditions alignment */
-        .terms-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .terms-wrapper input[type="checkbox"] {
-            width: auto;
-            margin: 0;
-        }
-        .terms-wrapper label {
-            width: auto !important;
-            margin: 0;
-            font-weight: normal;
-        }
-        /* Ensure the parent div doesn't force column layout */
-        .terms-wrapper {
-            flex-direction: row !important;
-        }
-        /* Override any global form div styles for this specific row */
-        form div.terms-wrapper {
-            margin-left: 0;
-        }
-    </style>
+   
 </head>
 
 <body>
@@ -62,18 +37,13 @@
                     <h1>Nature Nest</h1>
                 </a>
             </div>
-            <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
-    <span></span>
-    <span></span>
-    <span></span>
-</button>
-<nav class="header-nav" id="header-nav">
-    <a href="./index.html">HOME</a>
-    <a href="./about.html">ABOUT</a>
-    <a href="./service.html">SERVICE</a>
-    <a href="./Register.html">REGISTER</a>
-    <a href="./login.html">LOGIN</a>
-</nav>
+            <nav class="header-nav">
+                <a href="./index.html">HOME</a>
+                <a href="./about.html">ABOUT</a>
+                <a href="./service.html">SERVICE</a>
+                <a href="./Register.html">REGISTER</a>
+                <a href="./login.html">LOGIN</a>
+            </nav>
         </div>
     </header>
     <!-- header end -->
@@ -111,7 +81,6 @@
                 <label for="other">Other</label>
             </div>
             <br>
-            <!-- Fixed terms & conditions alignment -->
             <div class="terms-wrapper">
                 <input type="checkbox" name="terms" id="termsCheckbox" required>
                 <label for="termsCheckbox">I agree to the <a href="#">terms and conditions</a></label>
@@ -127,6 +96,14 @@
             </div>
         </form>
     </section>
+
+    <!-- Loader Overlay -->
+    <div id="loaderOverlay" class="loader-overlay">
+        <div class="loader-container">
+            <div class="spinner"></div>
+            <div class="loader-text">Creating your account, please wait...</div>
+        </div>
+    </div>
 
     <!-- footer start -->
     <footer>
@@ -173,6 +150,15 @@
     <script>
         const API_BASE = 'http://localhost:5500';
         const form = document.getElementById('registerForm');
+        const loaderOverlay = document.getElementById('loaderOverlay');
+
+        function showLoader() {
+            loaderOverlay.classList.add('active');
+        }
+
+        function hideLoader() {
+            loaderOverlay.classList.remove('active');
+        }
 
         form?.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -191,6 +177,9 @@
                 createdAt: new Date().toISOString()
             };
 
+            // Show loader immediately
+            showLoader();
+
             try {
                 const resp = await fetch(`${API_BASE}/users`, {
                     method: 'POST',
@@ -199,31 +188,17 @@
                 });
                 if (!resp.ok) throw new Error('Request failed');
 
-                alert('Registered successfully.');
-                window.location.href = './login.html';
+                // Success: keep loader visible, then redirect after 1 second
+                setTimeout(() => {
+                    window.location.href = './login.html';
+                }, 1000);
             } catch (err) {
                 console.error(err);
+                hideLoader();
                 alert('Registration failed. Please try again.');
             }
         });
     </script>
 </body>
-
-<script defer>
-    const hamburger = document.getElementById('hamburger');
-    const nav = document.getElementById('header-nav');
-    hamburger.addEventListener('click', () => {
-        const isOpen = nav.classList.toggle('nav-open');
-        hamburger.classList.toggle('is-active', isOpen);
-        hamburger.setAttribute('aria-expanded', isOpen);
-    });
-    nav.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            nav.classList.remove('nav-open');
-            hamburger.classList.remove('is-active');
-            hamburger.setAttribute('aria-expanded', false);
-        });
-    });
-</script>
 
 </html>

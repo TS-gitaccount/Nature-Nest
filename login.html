@@ -7,6 +7,7 @@
     <title>Login - Nature Nest</title>
     <link rel="stylesheet" href="style1.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+   
 </head>
 
 <body>
@@ -21,14 +22,10 @@
             </div>
             <div>
                 <ul class="social-links">
-                    <li><a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"><i
-                                class="fab fa-facebook"></i></a></li>
-                    <li><a href="https://x.com/?lang=en-in&mx=2" target="_blank" rel="noopener noreferrer"><i
-                                class="fab fa-twitter"></i></a></li>
-                    <li><a href="https://in.linkedin.com/" target="_blank" rel="noopener noreferrer"><i
-                                class="fab fa-linkedin"></i></a></li>
-                    <li><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><i
-                                class="fab fa-instagram"></i></a></li>
+                    <li><a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a></li>
+                    <li><a href="https://x.com/?lang=en-in&mx=2" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="https://in.linkedin.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a></li>
+                    <li><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a></li>
                 </ul>
             </div>
         </div>
@@ -40,12 +37,7 @@
                     <h1>Nature Nest</h1>
                 </a>
             </div>
-            <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <nav class="header-nav" id="header-nav">
+            <nav class="header-nav">
                 <a href="./index.html">HOME</a>
                 <a href="./about.html">ABOUT</a>
                 <a href="./service.html">SERVICE</a>
@@ -61,18 +53,16 @@
             <h1>Login</h1>
             <div>
                 <label for="username">Username or Email:</label>
-                <input type="text" id="username" name="username" required minlength="5" maxlength="10"
-                    placeholder="5-10 characters">
+                <input type="text" id="username" name="username" required minlength="5"  placeholder="email or username">
             </div>
             <br>
             <div>
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required minlength="8"
-                    placeholder="Min 8 characters">
+                <input type="password" id="password" name="password" required minlength="8" placeholder="Min 8 characters">
             </div>
             <br>
             <div id="register-link">
-                <p>Not registered? <a href="./Register.html">Create an account</a></p> <!-- fixed case -->
+                <p>Not registered? <a href="./Register.html">Create an account</a></p>
             </div>
             <br>
             <div class="buttons">
@@ -81,6 +71,14 @@
             </div>
         </form>
     </section>
+
+    <!-- Loader Overlay -->
+    <div id="loaderOverlay" class="loader-overlay">
+        <div class="loader-container">
+            <div class="spinner"></div>
+            <div class="loader-text">Logging in, please wait...</div>
+        </div>
+    </div>
 
     <!-- footer start -->
     <footer>
@@ -109,14 +107,10 @@
                     <h3>Stay Connected</h3>
                     <p>Follow us on social media for updates and news!</p>
                     <div class="footer-social-links">
-                        <a href="https://x.com/?lang=en-in&mx=2" target="_blank" rel="noopener noreferrer"><i
-                                class="fab fa-twitter"></i></a>
-                        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"><i
-                                class="fab fa-facebook-f"></i></a>
-                        <a href="https://in.linkedin.com/" target="_blank" rel="noopener noreferrer"><i
-                                class="fab fa-linkedin-in"></i></a>
-                        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><i
-                                class="fab fa-instagram"></i></a>
+                        <a href="https://x.com/?lang=en-in&mx=2" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://in.linkedin.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
@@ -129,8 +123,17 @@
     <!-- footer end -->
 
     <script>
-        const API_BASE = 'http://localhost:5500';
+        const API_BASE = 'http://localhost:3000';
         const loginForm = document.getElementById('loginForm');
+        const loaderOverlay = document.getElementById('loaderOverlay');
+
+        function showLoader() {
+            loaderOverlay.classList.add('active');
+        }
+
+        function hideLoader() {
+            loaderOverlay.classList.remove('active');
+        }
 
         loginForm?.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -138,44 +141,34 @@
             const usernameOrEmail = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
 
+            // Show loader immediately
+            showLoader();
+
             try {
                 const res = await fetch(`${API_BASE}/users`);
                 const users = await res.json();
 
-                const user = users.find(u =>
+                const user = users.find(u => 
                     (u.username === usernameOrEmail || u.email === usernameOrEmail) && u.password === password
                 );
 
                 if (user) {
-                    alert(`Welcome back, ${user.fullname || user.username}!`);
-                    // Optionally redirect to dashboard or home
-                    window.location.href = './index.html';
+                    // Success: keep loader visible, then redirect after 1 second
+                    setTimeout(() => {
+                        window.location.href = './index.html';
+                    }, 1000);
                 } else {
+                    // Failure: hide loader and show error
+                    hideLoader();
                     alert('Invalid username/email or password. Please try again.');
                 }
             } catch (err) {
                 console.error(err);
+                hideLoader();
                 alert('Login failed. Make sure JSON Server is running on port 5500.');
             }
         });
     </script>
 </body>
-
-<script defer>
-    const hamburger = document.getElementById('hamburger');
-    const nav = document.getElementById('header-nav');
-    hamburger.addEventListener('click', () => {
-        const isOpen = nav.classList.toggle('nav-open');
-        hamburger.classList.toggle('is-active', isOpen);
-        hamburger.setAttribute('aria-expanded', isOpen);
-    });
-    nav.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            nav.classList.remove('nav-open');
-            hamburger.classList.remove('is-active');
-            hamburger.setAttribute('aria-expanded', false);
-        });
-    });
-</script>
 
 </html>
