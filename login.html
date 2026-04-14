@@ -7,7 +7,8 @@
     <title>Login - Nature Nest</title>
     <link rel="stylesheet" href="style1.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
-   
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
 </head>
 
 <body>
@@ -53,7 +54,7 @@
             <h1>Login</h1>
             <div>
                 <label for="username">Username or Email:</label>
-                <input type="text" id="username" name="username" required minlength="5"  placeholder="email or username">
+                <input type="text" id="username" name="username" required placeholder="Username or email">
             </div>
             <br>
             <div>
@@ -72,7 +73,6 @@
         </form>
     </section>
 
-    <!-- Loader Overlay -->
     <div id="loaderOverlay" class="loader-overlay">
         <div class="loader-container">
             <div class="spinner"></div>
@@ -123,7 +123,12 @@
     <!-- footer end -->
 
     <script>
-        const API_BASE = 'http://localhost:3000';
+        // ==================== SUPABASE CONFIGURATION ====================
+        const SUPABASE_URL = 'https://xovryqvqrzirfrchqjgp.supabase.co';    
+        const SUPABASE_ANON_KEY = 'sb_publishable_n-A9d5vpauaIPKXInSSFkQ_sxoMvOLm'; 
+        const supabase = supabaseJs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // ================================================================
+
         const loginForm = document.getElementById('loginForm');
         const loaderOverlay = document.getElementById('loaderOverlay');
 
@@ -141,31 +146,34 @@
             const usernameOrEmail = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
 
-            // Show loader immediately
             showLoader();
 
             try {
-                const res = await fetch(`${API_BASE}/users`);
-                const users = await res.json();
+                // Query user by username OR email, and password match
+                const { data, error } = await supabase
+                    .from('users')
+                    .select('*')
+                    .or(`username.eq.${usernameOrEmail},email.eq.${usernameOrEmail}`)
+                    .eq('password', password);
 
-                const user = users.find(u => 
-                    (u.username === usernameOrEmail || u.email === usernameOrEmail) && u.password === password
-                );
+                if (error) {
+                    throw error;
+                }
 
-                if (user) {
-                    // Success: keep loader visible, then redirect after 1 second
+                if (data && data.length > 0) {
+                    const user = data[0];
+                    // Success: redirect after 1 second
                     setTimeout(() => {
                         window.location.href = './index.html';
                     }, 1000);
                 } else {
-                    // Failure: hide loader and show error
                     hideLoader();
                     alert('Invalid username/email or password. Please try again.');
                 }
             } catch (err) {
                 console.error(err);
                 hideLoader();
-                alert('Login failed. Make sure JSON Server is running on port 5500.');
+                alert('Login failed. Please check your connection and try again.');
             }
         });
     </script>

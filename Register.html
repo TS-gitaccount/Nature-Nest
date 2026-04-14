@@ -7,6 +7,8 @@
     <title>Register - Nature Nest</title>
     <link rel="stylesheet" href="style1.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+    <!-- Supabase JS library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
    
 </head>
 
@@ -148,7 +150,12 @@
     <!-- footer end -->
 
     <script>
-        const API_BASE = 'http://localhost:5500';
+        // ==================== SUPABASE CONFIGURATION ====================
+        const SUPABASE_URL = 'https://xovryqvqrzirfrchqjgp.supabase.co';    
+        const SUPABASE_ANON_KEY = 'sb_publishable_n-A9d5vpauaIPKXInSSFkQ_sxoMvOLm'; 
+        const supabase = supabaseJs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // ================================================================
+
         const form = document.getElementById('registerForm');
         const loaderOverlay = document.getElementById('loaderOverlay');
 
@@ -168,34 +175,46 @@
                 return;
             }
 
-            const payload = {
-                fullname: document.getElementById('fullname').value.trim(),
-                username: document.getElementById('username').value.trim(),
-                email: document.getElementById('email').value.trim(),
-                password: document.getElementById('password').value,
-                gender: document.querySelector('input[name="gender"]:checked')?.value || null,
-                createdAt: new Date().toISOString()
-            };
+            const fullname = document.getElementById('fullname').value.trim();
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const gender = document.querySelector('input[name="gender"]:checked')?.value || null;
 
-            // Show loader immediately
             showLoader();
 
             try {
-                const resp = await fetch(`${API_BASE}/users`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                if (!resp.ok) throw new Error('Request failed');
+                const { data, error } = await supabase
+                    .from('users')
+                    .insert([
+                        {
+                            fullname: fullname,
+                            username: username,
+                            email: email,
+                            password: password,  // ⚠️ plain text – upgrade later
+                            gender: gender,
+                            createdAt: new Date().toISOString()
+                        }
+                    ]);
 
-                // Success: keep loader visible, then redirect after 1 second
-                setTimeout(() => {
-                    window.location.href = './login.html';
-                }, 1000);
+                if (error) {
+                    // Check for duplicate username/email
+                    if (error.code === '23505') {
+                        alert('Username or email already exists. Please choose another.');
+                    } else {
+                        alert('Registration failed: ' + error.message);
+                    }
+                    hideLoader();
+                } else {
+                    // Success: redirect after 1 second
+                    setTimeout(() => {
+                        window.location.href = './login.html';
+                    }, 1000);
+                }
             } catch (err) {
                 console.error(err);
+                alert('Network error. Please try again.');
                 hideLoader();
-                alert('Registration failed. Please try again.');
             }
         });
     </script>
