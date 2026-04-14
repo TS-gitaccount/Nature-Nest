@@ -1,40 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Nature Nest</title>
     <link rel="stylesheet" href="style1.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
-    <!-- Supabase JS library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-   <style>
-       
-.terms-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.terms-wrapper input[type="checkbox"] {
-    width: auto;
-    margin: 0;
-}
-
-.terms-wrapper label {
-    width: auto !important;
-    margin: 0;
-    font-weight: normal;
-}
-
-form div.terms-wrapper {
-    margin-left: 0;
-}
-   </style>
+    <style>
+        .terms-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .terms-wrapper input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+        .terms-wrapper label {
+            width: auto !important;
+            margin: 0;
+            font-weight: normal;
+        }
+        form div.terms-wrapper {
+            margin-left: 0;
+        }
+    </style>
 </head>
-
 <body>
     <!-- header start -->
     <header>
@@ -78,54 +71,49 @@ form div.terms-wrapper {
     </header>
     <!-- header end -->
 
-    <section id="register">
+  <section id="register">
         <form id="registerForm">
             <h1><span>Register</span></h1>
             <div>
                 <label for="fullname">Full Name:</label>
                 <input type="text" id="fullname" name="fullname" required minlength="3" maxlength="50" placeholder="Enter your full name">
             </div>
-            <br>
             <div>
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required minlength="5" maxlength="10" placeholder="5-10 characters">
             </div>
-            <br>
             <div>
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required placeholder="example@mail.com">
             </div>
-            <br>
             <div>
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required minlength="8" placeholder="Min 8 characters">
             </div>
-            <br>
             <div class="gender-group">
                 <label id="gender">Gender:</label>
                 <input type="radio" id="male" name="gender" value="male" required>
                 <label for="male">Male</label>
-                <input type="radio" id="female" name="gender" value="female" required>
+                <input type="radio" id="female" name="gender" value="female">
                 <label for="female">Female</label>
-                <input type="radio" id="other" name="gender" value="other" required>
+                <input type="radio" id="other" name="gender" value="other">
                 <label for="other">Other</label>
             </div>
-            <br>
             <div class="terms-wrapper">
                 <input type="checkbox" name="terms" id="termsCheckbox" required>
                 <label for="termsCheckbox">I agree to the <a href="#">terms and conditions</a></label>
             </div>
-            <br>
             <div id="login-link">
                 <p>Already registered? <a href="./login.html">Login now</a></p>
             </div>
-            <br>
             <div class="buttons">
                 <input type="submit" value="Register">
                 <input type="reset" value="Reset">
             </div>
         </form>
     </section>
+
+
 
     <!-- Loader Overlay -->
     <div id="loaderOverlay" class="loader-overlay">
@@ -170,49 +158,29 @@ form div.terms-wrapper {
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Our Website. All rights reserved.</p>
+                <p>&copy; 2025 Our Website. All rights reserved.</p>
                 <p>Designed for the future, built for today.</p>
             </div>
         </div>
     </footer>
     <!-- footer end -->
 
-    <script defer>
-    const hamburger = document.getElementById('hamburger');
-    const nav = document.getElementById('header-nav');
-    hamburger.addEventListener('click', () => {
-        const isOpen = nav.classList.toggle('nav-open');
-        hamburger.classList.toggle('is-active', isOpen);
-        hamburger.setAttribute('aria-expanded', isOpen);
-    });
-    nav.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            nav.classList.remove('nav-open');
-            hamburger.classList.remove('is-active');
-            hamburger.setAttribute('aria-expanded', false);
-        });
-    });
-
-        // ==================== SUPABASE CONFIGURATION ====================
-        const SUPABASE_URL = 'https://xovryqvqrzirfrchqjgp.supabase.co';    
-        const SUPABASE_ANON_KEY = 'sb_publishable_n-A9d5vpauaIPKXInSSFkQ_sxoMvOLm'; 
-        const supabase = supabaseJs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        // ================================================================
+     <script defer>
+        // ==================== FIXED SUPABASE INIT ====================
+        const SUPABASE_URL = 'https://xovryqvqrzirfrchqjgp.supabase.co';
+        
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhvdnJ5cXZxcnppcmZyY2hxamdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxNjQ0MjMsImV4cCI6MjA5MTc0MDQyM30.Ta2XSbIukgECFZjo0ryeP9c3QRk6h_8MU5GMAIoQjk4';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // ============================================================
 
         const form = document.getElementById('registerForm');
         const loaderOverlay = document.getElementById('loaderOverlay');
 
-        function showLoader() {
-            loaderOverlay.classList.add('active');
-        }
-
-        function hideLoader() {
-            loaderOverlay.classList.remove('active');
-        }
+        function showLoader() { loaderOverlay.classList.add('active'); }
+        function hideLoader() { loaderOverlay.classList.remove('active'); }
 
         form?.addEventListener('submit', async (e) => {
             e.preventDefault();
-
             if (!form.checkValidity()) {
                 form.reportValidity();
                 return;
@@ -227,40 +195,54 @@ form div.terms-wrapper {
             showLoader();
 
             try {
-                const { data, error } = await supabase
-                    .from('users')
-                    .insert([
-                        {
+                // 1. Sign up with Supabase Auth (hashed password)
+                const { data: authData, error: authError } = await supabase.auth.signUp({
+                    email: email,
+                    password: password,
+                    options: {
+                        data: { fullname, username, gender }
+                    }
+                });
+
+                if (authError) throw authError;
+
+                // 2. Insert additional user data into a 'profiles' table (or your 'users' table)
+                //    Using the user's ID from auth.
+                const userId = authData.user?.id;
+                if (userId) {
+                    const { error: insertError } = await supabase
+                        .from('users')   // change to your actual table name
+                        .insert([{
+                            id: userId,
                             fullname: fullname,
                             username: username,
                             email: email,
-                            password: password,  // ⚠️ plain text – upgrade later
                             gender: gender,
-                            createdAt: new Date().toISOString()
-                        }
-                    ]);
+                            created_at: new Date().toISOString()
+                        }]);
 
-                if (error) {
-                    // Check for duplicate username/email
-                    if (error.code === '23505') {
-                        alert('Username or email already exists. Please choose another.');
-                    } else {
-                        alert('Registration failed: ' + error.message);
+                    if (insertError) {
+                        // If profile insert fails, still account created – you may want to clean up.
+                        console.error('Profile insert error:', insertError);
+                        alert('Account created but profile data could not be saved. Please contact support.');
                     }
-                    hideLoader();
-                } else {
-                    // Success: redirect after 1 second
-                    setTimeout(() => {
-                        window.location.href = './login.html';
-                    }, 1000);
                 }
+
+                // Success
+                setTimeout(() => {
+                    window.location.href = './login.html';
+                }, 1000);
+
             } catch (err) {
                 console.error(err);
-                alert('Network error. Please try again.');
+                let msg = 'Registration failed. ';
+                if (err.message.includes('User already registered')) msg = 'Email already exists.';
+                else if (err.message.includes('password')) msg = 'Password too weak. Use at least 8 characters.';
+                else msg += err.message;
+                alert(msg);
                 hideLoader();
             }
         });
     </script>
 </body>
-
 </html>
