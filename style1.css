@@ -1689,3 +1689,27 @@ input[type="radio"] {
 .loader-container {
     text-align: center;
 }
+
+
+/* register terms and condition */
+.terms-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.terms-wrapper input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+}
+
+.terms-wrapper label {
+    width: auto !important;
+    margin: 0;
+    font-weight: normal;
+}
+
+form div.terms-wrapper {
+    margin-left: 0;
+}
